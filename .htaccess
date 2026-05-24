@@ -1,0 +1,12 @@
+RewriteEngine On
+
+# Block direct access to internal PHP tree
+RewriteRule ^pages/ - [F,L]
+
+# Serve real files (index.php, assets, etc.) — same pattern as samsung-clon
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Clean URLs → front controller
+RewriteRule ^ router.php [L,QSA]
