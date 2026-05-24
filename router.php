@@ -7,6 +7,8 @@ declare(strict_types=1);
 require_once __DIR__ . '/includes/tk-php-polyfill.php';
 require_once __DIR__ . '/base-url.php';
 
+tk_send_security_headers();
+
 $uri = $_SERVER['REQUEST_URI'] ?? '/';
 $path = parse_url($uri, PHP_URL_PATH);
 if (!is_string($path) || $path === '') {

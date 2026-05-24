@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/includes/tk-php-polyfill.php';
+require_once __DIR__ . '/includes/tk-sanitize-tracking.php';
 
 function tk_install_base_path(): string
 {
@@ -270,6 +271,8 @@ function tk_rewrite_html_urls(string $html): string
         'href=$2' . $base . '$2',
         $html
     ) ?? $html;
+
+    $html = tk_strip_tracking_html($html);
 
     return $html;
 }
