@@ -18,13 +18,10 @@ function tk_strip_tracking_html(string $html): string
     ) ?? $html;
 
     $patterns = [
-        // Preload to known trackers
         '~<link\s[^>]*rel=["\']preload["\'][^>]*(?:cookielaw|optimizely|googletagmanager|facebook|hotjar)[^>]*>\s*~i',
-        // Script tags loading trackers
-        '~\s*~i',
-        '~\s*~i',
-        // OneTrust / cookie banners
-        '~\s*~i',
+        '~<script\b[^>]*(?:cookielaw|optimizely|googletagmanager|google-analytics|OtAutoBlock|otSDKStub)[^>]*>[\s\S]*?</script>\s*~i',
+        '~<script\b[^>]*\bsrc=["\'][^"\']*(?:cookielaw|optimizely)[^"\']*["\'][^>]*>\s*</script>\s*~i',
+        '~<style[^>]*>[\s\S]*?#onetrust-consent-sdk[\s\S]*?</style>\s*~i',
         '~<iframe\b[^>]*\boptimizely\b[^>]*>[\s\S]*?</iframe>\s*~i',
     ];
 
