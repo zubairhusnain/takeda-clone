@@ -1,12 +1,34 @@
+# Takeda offline — front controller (router.php) for clean URLs.
+# cPanel: enable mod_rewrite; upload this file with index.php + router.php.
+# If the site lives in a subdirectory, set RewriteBase (e.g. RewriteBase /subdir/)
+
+<IfModule mod_rewrite.c>
 RewriteEngine On
+
+# Site in subdirectory? Uncomment and set to that path (leading slash, no trailing slash):
+# RewriteBase /subdir
+
+Options -MultiViews
+DirectoryIndex index.php
 
 # Block direct access to internal PHP tree
 RewriteRule ^pages/ - [F,L]
 
-# Serve real files (index.php, assets, etc.) — same pattern as samsung-clon
-RewriteCond %{REQUEST_FILENAME} -f [OR]
-RewriteCond %{REQUEST_FILENAME} -d
+# Serve real files (CSS, JS, images, fonts, etc.)
+RewriteCond %{REQUEST_FILENAME} -f
 RewriteRule ^ - [L]
 
-# Clean URLs → front controller
+# Serve directories only when they have their own index (not empty legacy route folders)
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteCond %{REQUEST_FILENAME}/index.php -f [OR]
+RewriteCond %{REQUEST_FILENAME}/index.html -f
+RewriteRule ^ - [L]
+
+# Everything else → router (about/our-company, science/areas-of-focus, …)
 RewriteRule ^ router.php [L,QSA]
+</IfModule>
+
+# When mod_rewrite is off, at least open the homepage
+<IfModule !mod_rewrite.c>
+DirectoryIndex index.php
+</IfModule>
