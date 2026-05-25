@@ -1,0 +1,1 @@
+(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,324663,i=>{"use strict";var t=i.i(351715);i.s([],350827),i.i(350827),i.s(["default",()=>t.HorizontalTabRedesign],324663)},64595,i=>{i.n(i.i(324663))}]);

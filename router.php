@@ -42,6 +42,11 @@ if (str_starts_with($path, '/assets/')) {
         exit;
     }
     http_response_code(404);
+    if (str_ends_with($path, '.css')) {
+        header('Content-Type: text/css; charset=utf-8');
+    } elseif (str_ends_with($path, '.js')) {
+        header('Content-Type: application/javascript; charset=utf-8');
+    }
     exit;
 }
 
